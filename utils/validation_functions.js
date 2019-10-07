@@ -33,12 +33,12 @@ const  resetValidators = () => {
   }
 
 
-  const displayValidationErrors = ( fieldName ) => {
+  const displayValidationErrors = ( fieldName , customLabelColor ) => {
     
     const validator =  validators[fieldName];
     const { errors } = validator
      return ( <Text style={{ 
-       color:"red"  }}>
+       color: customLabelColor ? "white":"red"  }}>
        {errors[0]}
        </Text>)
   }

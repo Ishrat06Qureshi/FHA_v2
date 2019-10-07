@@ -21,10 +21,10 @@ const Input = ( props ) => {
               {label}
           </Text>
           <TextInput
-          placeholder = { placeHolderText}
+          placeholder = { customLabelColor? "": placeHolderText}
           placeholderTextColor ={ customLabelColor? "white": "#999999"}
           secureTextEntry = { isSecureTextEntry }
-          underlineColorAndroid="transparent"
+          underlineColorAndroid={ customLabelColor? "white":"transparent"}
           onChangeText = {( value ) => onChangeText( errorName , value) }
           defaultValue= { defaultAnswer? defaultAnswer  : null}
           editable = { edit }
@@ -33,7 +33,7 @@ const Input = ( props ) => {
           value = {value }
            
           />
-           {validation_functions.displayValidationErrors(errorName)}
+           {validation_functions.displayValidationErrors(errorName , customLabelColor)}
           
    </View>)
 }

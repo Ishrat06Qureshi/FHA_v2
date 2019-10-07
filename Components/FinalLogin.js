@@ -121,7 +121,9 @@ const initialState = {
                           textStyle = { disable ? disable_Text_Style : disable_Text_Style }
                           disable = { disable}
                           />
-                          <TouchableOpacity onPress = {() => this.props.navigation.navigate("Finalsignup")}>
+                          <TouchableOpacity onPress = {() => 
+                            {  validation_functions.resetValidators()
+                              this.props.navigation.navigate("Finalsignup")} }>
                             <View style = { { justifyContent:"flex-end" , alignItems:"flex-end" , paddingTop:10} }>
                             <Text style = { White_Text} > Create ? </Text>
                             </View>
