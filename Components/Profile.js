@@ -5,12 +5,24 @@ import {Ionicons ,
     Feather} from "@expo/vector-icons";
 import {  Heading_style , bold_Text } from "../Styles";
 import CustomText from "./CustomText"
- 
+import { connect } from "react-redux"
 
 
 class Profile extends Component {
     
    render() {
+      const { email,
+         customerNumber,
+        
+         companyName,
+        
+         contactPersonName,
+         phoneNumber,
+         lineOne,
+         lineTwo,
+         city,
+         province,
+         postalCode, } = this.props.userData
        return( <View>
             <View >
                 <Feather  name="user"  size = {35 }  color = "orange" style  = {{justifyContent:"center" , 
@@ -22,29 +34,29 @@ class Profile extends Component {
                 
                 
                 <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:20 , marginBottom:25}}>
-            <Text style = { bold_Text }> A.B Mechanical Company </Text>
+            <Text style = { bold_Text }>{companyName}</Text>
             </View>
             <ScrollView>
                 
              <CustomText
                 label = "Customer Number"
-                text = { 12456}
+                text = { customerNumber }
              />
               <CustomText
                 label = "Contact Person Name"
-                text = "Dev"
+                text = { contactPersonName }
              />
               <CustomText
                 label = "Email"
-                text = "dev@gmail.com"
+                text = { email }
              />
               <CustomText
                 label = "Office Address"
-                text = "1 Moore Rd, Dartmouth, NS B3B 1J1, Canada"
+                text = {`${lineOne} , ${city} , ${province} , ${postalCode}`}
              />
               <CustomText
                 label = "Phone Number"
-                text = "0123456789"
+                text = { phoneNumber }
              />
 
               </ScrollView>
@@ -52,4 +64,10 @@ class Profile extends Component {
        </View>)
    }
 }
-export default Profile
+
+const mapStateToProps = () => {
+   return({
+      userData:state.UserDataReducer.UserData
+     })
+}
+export default connect( mapStateToProps , null )(Profile)

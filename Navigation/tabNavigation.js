@@ -23,7 +23,7 @@ const ProfileTab = createMaterialTopTabNavigator({
 const TabBar = createBottomTabNavigator(
     {
             Home: {
-            screen : HomeStack ,
+            screen : Profile ,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
             <AntDesign name='home' size={25} color={tintColor} /> )})
             },
