@@ -32,11 +32,6 @@ const OrderDetails = ( props ) => {
                     onPressMethod = { closeModal }
                     label = "close"
                     />
-            
-
-
-                    
-
                     <View style = {{ flexDirection:"row" , paddingLeft:10}}>
                         <Entypo
                                         name = "address" 
@@ -65,64 +60,32 @@ const OrderDetails = ( props ) => {
                                         name = "shopping-cart" 
                                         size = {20} 
                                         color = "orange"/>
-                        <View>           
-                        <Text style = {{ ...bold_Text , paddingLeft:10} } numberOfLines= {0.5}>Items</Text>
-                          <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-
-<Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                            <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                            <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                            <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                            <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                            <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                          <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                          <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                          <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
-                          <Items
-                          productCode = { productCode}
-                          Quantity = {5 }
-                          UOM = { UOM}
-                          />
+                        <View style={{ flex:1}}>           
+                           <Text style = {{ ...bold_Text , paddingLeft:10} } numberOfLines= {0.5}>Items</Text>
+                           <View style= {{ flex:1}}>
+                             
+                            <Item
+                            productCode = { productCode}
+                            Quantity = {5 }
+                            UOM = { UOM}
+                            />
+                          </View>
+                          <View style= {{ flex:1}}>
+                            
+                              <Item
+                              productCode = { productCode}
+                              Quantity = {5 }
+                              UOM = { UOM}
+                              />
+                          </View>
+                          <View style= {{ flex:1}}>
+                            
+                                  <Item
+                                productCode = { productCode}
+                                Quantity = {5 }
+                                UOM = { UOM}
+                                />
+                         </View>
                         </View> 
 
                     </View>
@@ -136,24 +99,48 @@ const OrderDetails = ( props ) => {
     </View> )
 }
 
-const Items = ( props ) => {
-    const {  productCode , Quantity , UOM} = props
-    return(
-        <View style = {{ flexDirection:"row" , justifyContent:"space-between" }}>
-        <CustomText
-        label = "Product Code"
-        text = { productCode}
-        />
-        <CustomText
-          label = "Quantity"
-          text = { Quantity }/>
-         <CustomText
-            label = "UOM"
-            text = {UOM}
-         />
-    </View>
-    )
- 
- 
+// const Items = ( props ) => {
+//     const {  productCode , Quantity , UOM} = props
+//     return(
+//             <View style = {{ flexDirection:"row" , 
+//             justifyContent:"space-between" ,
+//             alignItems:"stretch",
+//             borderColor:"red",
+//             borderWidth:1
+//             }}>
+              
+               
+//                   <CustomText
+//                   label = "Product Code"
+//                   text = { productCode}/>
+               
+              
+//                 <CustomText
+//                     label = "Quantity"
+//                     text = { Quantity }/>
+             
+            
+             
+//                   <CustomText
+//                       label = "UOM"
+//                       text = {UOM}
+//                   />
+              
+//               </View>
+//     )
+// }
+
+
+const Item = () => {
+  return(<View style = {{ }}>
+      <View>
+          <Text style = {{ fontWeight:"bold"}}>Product Code</Text>
+          <Text>ax121</Text>
+      </View>
+      <View>
+          <Text style = {{ fontWeight:"bold"}}>Product Code</Text>
+          <Text>ax121</Text>
+      </View>
+  </View>)
 }
 export default OrderDetails 

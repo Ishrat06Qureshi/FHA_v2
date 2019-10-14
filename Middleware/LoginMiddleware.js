@@ -2,10 +2,6 @@ import TokenAction from "../Actions/tokenAction";
 import UserDataAction from "../Actions/UserDataAction";
 import SaveError from "../Actions/errorAction";
 import axios from "axios";
-import {NavigationActions } from 'react-navigation';
-
-
-
 const LoginMiddleware = ( data ) => {
     console.log( data )
     const { email , password , navigateToHome,OnLoader,ResetState,OnLoaderOff  } = data

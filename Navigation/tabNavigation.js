@@ -1,15 +1,19 @@
 import React from "react";
-import {  createBottomTabNavigator, createMaterialTopTabNavigator  } from "react-navigation";
+import {  createBottomTabNavigator, createMaterialTopTabNavigator , createStackNavigator   } from "react-navigation";
 import {AntDesign , MaterialIcons , Ionicons} from "@expo/vector-icons";
 
 import Home from "../Components/newHome";
-import Order from "../Components/Order";
+import OrderList from "../Components/Order";
 import Logout from "../Components/Logout";
 import Search from "../Components/Search";
 import Cart from "../Components/Cart";
 import EditProfile from "../Components/EditProfile";
 import Profile from "../Components/Profile"
 import {HomeStack, ProfileStack} from "./StackNavigators"
+import OrderDetails from "../Components/OrderDetails"
+import NewOrderDetails from "../Components/NewOrderDetails"
+
+
 
 
 const ProfileTab = createMaterialTopTabNavigator({
@@ -20,10 +24,14 @@ const ProfileTab = createMaterialTopTabNavigator({
     }
 })
 
+const NewProfileStack  = createStackNavigator({
+     Profile,
+     EditProfile
+})
 const TabBar = createBottomTabNavigator(
     {
             Home: {
-            screen : Profile ,
+            screen : NewOrderDetails,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
             <AntDesign name='home' size={25} color={tintColor} /> )})
             },

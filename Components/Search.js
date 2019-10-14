@@ -127,7 +127,7 @@ export default class Search extends React.Component {
           <FlatList
            data = { filterList }
            renderItem = {this._renderItem}
-           _keyExtractor =  {(item, index) => item+index }
+           _keyExtractor =  {(item, index) => item.productCode+index }
            keyboardShouldPersistTaps='always'
 
           /> : null}

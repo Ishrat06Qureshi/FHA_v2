@@ -1,9 +1,12 @@
 import * as actionTypes from "../Actions/actionTypes";
  
-const EditProfile = (  checklist ) => {
+const EditProfile = (  UpdatedData ) => {
+    // const obj = Object.fromEntries(checklist.map(item => [item.key, item.value]));
+    // console.log("obj",obj);
+   
     return ({
         type:actionTypes.EDIT_PROFILE,
-        checklist
+        UpdatedData
     })
    }
    

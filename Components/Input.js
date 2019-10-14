@@ -26,7 +26,7 @@ const Input = ( props ) => {
           secureTextEntry = { isSecureTextEntry }
           underlineColorAndroid={ customLabelColor? "white":"transparent"}
           onChangeText = {( value ) => onChangeText( errorName , value) }
-          defaultValue= { defaultAnswer? defaultAnswer  : null}
+          defaultValue= { defaultAnswer? defaultAnswer: null}
           editable = { edit }
           keyboardType = { keyBoardType}
         //   style = { White_Color_Text }

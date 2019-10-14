@@ -39,20 +39,19 @@ const  initialState = {
       }
       
 
-      handleSave = ( productId , quantity  , uom ) => {
+      handleSave = ( productId ,productCode, quantity  , uom ) => {
         const { closeModal } = this.props
-         console.log(productId , quantity )
         Keyboard.dismiss()
          this.setState(({...initialState}) , ()=> {
            validation_functions.resetValidators()
            closeModal()
          })
           console.log(" state of Product",this.state)
-        this.props.saveItem({productId, quantity , UOM:uom})
+        this.props.saveItem({productId,productCode, quantity , UOM:uom})
       }
     render() {
       const disable = validation_functions.isFormValid([ "quantity" ])
-        const { image , productCode , items ,  closeModal, uom } = this.props
+        const { image , productCode , items ,  closeModal, uom ,  productId} = this.props
         const { quantity } = this.state
         
        
@@ -102,7 +101,7 @@ const  initialState = {
                        buttonStyle = {  White_Square_button }
                        textStyle = { Red_Text }
                        text  = "Add"
-                       onPressMethod = { ()=>this.handleSave( productCode , quantity , uom )}
+                       onPressMethod = { ()=>this.handleSave( productId,productCode , quantity , uom )}
                        buttonStyle = {disable ? [enable_Button_Style, White_Square_button] :[ disable_Button_Style , White_Square_button ]}
                        textStyle = { disable ? enable_Text_Style    :disable_Text_Style }
                        disable = { disable}

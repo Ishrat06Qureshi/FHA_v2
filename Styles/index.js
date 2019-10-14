@@ -157,3 +157,13 @@ export const Image_styles = {
     width: "25%",
    resizeMode: 'contain',
 }
+
+export const element = {
+    justifyContent:"flex-end" ,
+     alignItems:"flex-start"
+}
+
+export const newContainer = {
+    flex:1,
+    paddingLeft:10
+}

@@ -146,7 +146,7 @@ const initialState = {
 
 const mapDispatchToProps = ( dispatch ) => {
    return({
-     Login:( data ) => dispatch(LoginMiddleware(data )) 
+     Login:( data ) => dispatch(LoginMiddleware( data )) 
    })
 }
 

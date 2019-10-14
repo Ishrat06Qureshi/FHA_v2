@@ -1,3 +1,4 @@
+//Important
 import React , { Component } from "react";
 import { View , Text  , FlatList , Alert , ScrollView } from "react-native";
 import { connect } from "react-redux";
@@ -10,7 +11,6 @@ import { Heading_style , Red_Button , White_Text ,
   } from "../Styles";
 import Button from "./Button";
 import validation_functions from "../utils/validation_functions"; 
-import AddressForm from "./AddressForm";
 import axios from "axios"
 import { NavigationEvents } from 'react-navigation';
 import Input from "./Input";
@@ -51,9 +51,13 @@ class Cart extends Component {
       const { items , userData , DeleteItem  } = this.props
       const { sameAsOffice, lineOne, city, province, postalCode } = this.state
       const shippingAddress =  sameAsOffice ? userData.officeAddress :  `${lineOne},${city} , ${province},${postalCode}`
-      axios.post("http://13.59.64.244:3000/api/order" , {createdBy:userData.userID , shippingAddress, productDetail:items}).
+      console.log(userData)
+      axios.post("http://13.59.64.244:3000/api/order" , {createdBy:userData.id,
+       shippingAddress, 
+       productDetail:items}).
       then(( response) => {
         if ( response.status === 200) {
+          console.log(response)
           DeleteItem()
           Alert.alert(
             'Order Confirmation',
@@ -267,7 +271,7 @@ class Cart extends Component {
 }
 
 const Item = ( {item} ) => {
-    console.log( "item" , item )
+   
     return( <View style = {{ flex:1 , flexDirection:"row", justifyContent:"center" , alignSelf:"center" , marginLeft:20}}>
         <View style = {{ flex:2}}>
         <CustomText
@@ -293,7 +297,7 @@ const Item = ( {item} ) => {
 </View>)
 }
 const mapStateToProps = ( state ) => {
-    console.log("state" , state )
+   
     return({
       items:state.orderReducer.items,
       userData:state.UserDataReducer.UserData

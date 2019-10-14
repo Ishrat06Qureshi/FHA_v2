@@ -2,11 +2,14 @@ import React , { Component } from "react";
 import { View , Text , ScrollView  , TouchableOpacity } from "react-native";
 import {Ionicons , 
     MaterialCommunityIcons,
-    Feather} from "@expo/vector-icons";
+    Feather,
+    AntDesign,
+    MaterialIcons,
+    Entypo} from "@expo/vector-icons";
 import {  Heading_style , bold_Text } from "../Styles";
-import CustomText from "./CustomText"
+import CustomTextWithIcon from "./CustomTextWithIcon"
 import { connect } from "react-redux"
-
+import * as style from "../Styles"
 
 class Profile extends Component {
     
@@ -25,47 +28,62 @@ class Profile extends Component {
          postalCode, } = this.props.userData
        return( <View>
             <View >
-                <Feather  name="user"  size = {35 }  color = "orange" style  = {{justifyContent:"center" , 
-                alignSelf:"center" , marginTop:15  }}/>
-                <TouchableOpacity onPress = { () => this.props.navigation.navigate("EditProfile")}>
+                {/* {/* <Feather  name="user"  size = {35 }  color = "orange" style  = {{justifyContent:"center" , 
+                alignSelf:"center" , marginTop:15  }}/> */}
+                {/* <TouchableOpacity onPress = { () => this.props.navigation.navigate("EditProfile")}>
                 <MaterialCommunityIcons  name="pencil-circle-outline"  size = {35 }  color = "orange" style  = {{justifyContent:"center" , 
                 alignSelf:"center" , marginTop:15  }}/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                 
                 
-                
-                <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:20 , marginBottom:25}}>
-            <Text style = { bold_Text }>{companyName}</Text>
+                <View style = {{ 
+                  justifyContent:"space-between" ,
+                  alignItems:"center",
+                  marginTop:20 ,
+                  marginBottom:25,
+                  flexDirection:"row"}}>
+                        <Text style = { {...bold_Text , fontSize: 25 , }  }>{companyName}</Text>
+                        <TouchableOpacity onPress = { () => this.props.navigation.navigate("EditProfile")}>
+                           <Text style = {{ color:"#828282"}}> Edit</Text>
+                        </TouchableOpacity>
             </View>
-            <ScrollView>
-                
-             <CustomText
-                label = "Customer Number"
-                text = { customerNumber }
-             />
-              <CustomText
-                label = "Contact Person Name"
-                text = { contactPersonName }
-             />
-              <CustomText
-                label = "Email"
-                text = { email }
-             />
-              <CustomText
-                label = "Office Address"
-                text = {`${lineOne} , ${city} , ${province} , ${postalCode}`}
-             />
-              <CustomText
-                label = "Phone Number"
-                text = { phoneNumber }
-             />
-
+            <ScrollView
+             contentContainerStyle = {{ paddingHorizontal:25}}
+            >
+            
+                  <CustomTextWithIcon
+                     IconComponent = {() =>  <AntDesign name= "barcode" size = {25}  color = "#DA011D"/>}
+                     label = "Customer Number"
+                     text = { customerNumber }
+                  />
+                     <CustomTextWithIcon
+                     IconComponent = {() =>  <MaterialIcons name= "person-pin" size = {25}  color = "#DA011D"/>}
+                     label = "Contact Person Name"
+                     text = { contactPersonName }
+                  />
+                     <CustomTextWithIcon
+                     IconComponent = {() =>  <MaterialIcons name= "email" size = {25}  color = "#DA011D"/>}
+                     label = "Email"
+                     text = { email }
+                  />
+                     <CustomTextWithIcon
+                     IconComponent = {() =>   <Entypo name= "address" size = {25} color = "#DA011D"/>}
+                     label = "Office Address"
+                     text = {`${lineOne} , ${city} , ${province} , ${postalCode}`}
+                  />
+                     <CustomTextWithIcon
+                     IconComponent = {() => <Feather  name= "phone" size = {25}  color = "#DA011D"/>}
+                     label = "Phone Number"
+                     text = { phoneNumber }
+                  />
               </ScrollView>
                  </View>
        </View>)
    }
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = ( state ) => {
+
    return({
       userData:state.UserDataReducer.UserData
      })

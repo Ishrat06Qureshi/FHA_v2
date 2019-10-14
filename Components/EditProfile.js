@@ -1,15 +1,13 @@
 import React , { Component } from "react";
- import { View , Text  , FlatList , ScrollView  } from "react-native";
- import Company from "./Company";
-import Customer from "./Customer";
-import Address  from "./AddressComponent"
+ import { View , Text  , FlatList , ScrollView , Alert  } from "react-native";
+
 import validation_functions from "../utils/validation_functions";
 import { NavigationEvents } from 'react-navigation';
 import Input from "./Input";
 import Button from "./Button";
-import axios from "axios";
 import { connect } from "react-redux";
-import UserDataAction from "../Actions/UserDataAction"
+import EditProfileMiddleware from "../Middleware/EditProfileMiddleware";
+import { Spinner } from "native-base"
 import { disable_Button_Style ,
   disable_Text_Style , 
   enable_Button_Style ,
@@ -25,18 +23,20 @@ import { disable_Button_Style ,
       constructor(props) {
         super(props)
         this.state = {
-          email:this.props.userData.email,
-          customerNumber:this.props.userData.customerNumber,
-          companyName:this.props.userData.companyName,
-          contactPersonName:this.props.userData.contactPersonName,
-          phoneNumber:this.props.userData.phoneNumber,
-          lineOne:this.props.userData.lineOne,
-          city:this.props.userData.city,
-          province:this.props.userData.province,
-          postalCode:this.props.userData.postalCode,
+          email:this.props.userData.email.trim(),
+          customerNumber:this.props.userData.customerNumber.trim(),
+          companyName:this.props.userData.companyName.trim(),
+          contactPersonName:this.props.userData.contactPersonName.trim(),
+          phoneNumber:this.props.userData.phoneNumber.trim(),
+          lineOne:this.props.userData.lineOne.trim(),
+          city:this.props.userData.city.trim(),
+          province:this.props.userData.province.trim(),
+          postalCode:this.props.userData.postalCode.trim(),
           serverError:"",
-          isLoading : false
+          isLoading : false,
+          isChangedSuccessfully:false
         }
+     
       }
 
       handleInputChange = ( fieldName , value) => {
@@ -49,16 +49,23 @@ import { disable_Button_Style ,
       
       }
 
+
+      LoadingOn = () => {
+        this.setState(({ isLoading:true}))
+      }
+      LoadingOff = () => {
+        this.setState(({ isLoading:false}))
+      }
       handleNext = () => {
         const  { token , userData } = this.props
         let UpdatedData = []
-        //  const  {  email,
-        //   customerNumber,
+         const  {  email,
+          customerNumber,
           
-        //   companyName,
+          companyName,
         
-        //   contactPersonName,
-        //   phoneNumber , lineOne ,  city, province , postalCode} = this.state
+          contactPersonName,
+          phoneNumber , lineOne ,  city, province , postalCode} = this.state
         // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDg0OGZhM2VkNjdhZjdlMDc4ZGI5ZWEiLCJpYXQiOjE1NjkwNzkxNDQsImV4cCI6MTU2OTA4MDM0NH0.2HloKaZ9IklrI012rPzksvbdGcnrQlD31m_oL74O6XU"
         // axios.put(`http://13.59.64.244:3000/api/user/edit/${userData.userID}`, {
         //   email , customerNumber , companyName , officeAddress:`${lineOne} , ${city} , ${province} , ${postalCode}`  , 
@@ -68,19 +75,27 @@ import { disable_Button_Style ,
         // then(( response ) =>  console.log(response.data)).catch ( err => console.log(err.response.data))
 
          checkFields.map(( key) => {
-          //  UpdatedData.push({[key]:this.state[key]})
           UpdatedData.push({
             key,
             value:this.state[key]
           })
          })
-
-        this.props.updatedData(UpdatedData)
-        this.props.navigation.navigate("Home")
-
+         const Data = {
+           UpdatedData,
+           token,
+           userID:userData.id,
+           LoadingOn:this.LoadingOn,
+           LoadingOff:this.LoadingOff,
+           NavigateBackToProfile: this.NavigateBackToProfile
+         }
+        this.props.updatedData(Data)
         
       }
 
+
+      NavigateBackToProfile = () => {
+        this.props.navigation.navigate("Profile")
+      }
      render() {
       const { 
         email,
@@ -94,7 +109,10 @@ import { disable_Button_Style ,
       lineTwo,
       city,
       province,
-      postalCode, } = this.state
+      postalCode,
+      isLoading,
+      isChangedSuccessfully
+     } = this.state
       
       const disable = validation_functions.isFormValid(checkFields)
       
@@ -106,9 +124,22 @@ import { disable_Button_Style ,
             <NavigationEvents
                   onDidBlur={() => this.setState(({...initialState}))}
                   />
-                  
-                      
-                         <ScrollView
+
+                  {/* {isChangedSuccessfully ? Alert.alert(
+  'Information Update Confirmation',
+  'your changes has been saved',
+  [
+  
+    {
+      text: 'Cancel',
+      onPress: () => console.log('Cancel Pressed'),
+      style: 'cancel',
+    },
+    {text: 'OK', onPress: () => this.props.navigation.navigate("Home")},
+  ],
+  
+): null } */}
+                   { isLoading? <Spinner/>:  <ScrollView
                           contentContainerStyle = {{justifyContent:"center" , marginTop:25}}
                           showsVerticalScrollIndicator = { false }
 
@@ -210,39 +241,31 @@ import { disable_Button_Style ,
                           
                               />  
 
-          <Button 
-           onPressMethod = {this.handleNext }
-           text = "Edit"
-           buttonStyle = {disable ? enable_Button_Style : disable_Button_Style}
-           textStyle = { disable ? enable_Text_Style  :disable_Text_Style}
-           disable = { !disable? false : true}
-           />
-           <View style = {{ height:200 , width:"100%"}}>
+                            <Button 
+                            onPressMethod = {this.handleNext }
+                            text = "Edit"
+                            buttonStyle = {disable ? enable_Button_Style : disable_Button_Style}
+                            textStyle = { disable ? enable_Text_Style  :disable_Text_Style}
+                            disable = { !disable? false : true}
+                            />
+                            <View style = {{ height:200 , width:"100%"}}>
 
-           </View>
-           {/* {/* <View style = {{ height:200 , width:"100%"}}>
+                            </View>
+                            {/* {/* <View style = {{ height:200 , width:"100%"}}>
 
-</View> */}
-<View style = {{ height:200 , width:"100%"}}>
+                  </View> */}
+                  <View style = {{ height:200 , width:"100%"}}>
 
-</View> 
-         
-         
-           
-                      </ScrollView>
-                         {/* <Customer
-                          handleInputChange = { this.handleInputChange}
-                          handleNext = { this.JumpStepTwo}
-                         /> */}
-                  
-                    </View> 
+                  </View> 
+                  </ScrollView> }
+                  </View> 
                 )
      }
  }
 
  const mapDispatchToProps = ( dispatch ) => {
     return({
-      updatedData:(data) => dispatch(UserDataAction.EDIT_PROFILE(data))
+      updatedData:(data) => dispatch(EditProfileMiddleware(data))
     })
  }
 
@@ -255,4 +278,4 @@ import { disable_Button_Style ,
    
 
  }
- export default  connect(mapStateToProps, mapDispatchToProps)(EditProfile)
+ export default connect( mapStateToProps , mapDispatchToProps )(EditProfile)

@@ -22,9 +22,9 @@ import ProductModal from "./ProductModal"
   }
  
   render() {
-     const  { productCode , description , uri, uom } = this.props
+     const  { productCode , description , uri, uom,  productId } = this.props
      const { isModalVisible } = this.state
-
+     console.log(productId)
     return ( 
        <View>
          <Card>
@@ -56,6 +56,7 @@ import ProductModal from "./ProductModal"
                      productCode = {productCode}
                      closeModal = {this.closeModal}
                      uom = {uom}
+                     productId = { productId}
                     />
                     </View>
                    </Modal>

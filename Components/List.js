@@ -18,6 +18,7 @@ import Products from "./Products";
         
     <Products
       productCode  = { item.productCode }
+      productId = {item.id}
       description = { item.description} 
       history = { this.props.history}
       uri  = {item.imageLink}
