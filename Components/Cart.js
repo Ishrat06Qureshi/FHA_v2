@@ -30,7 +30,7 @@ const initialState = {
   DifferentActive:false
   
 }
-const DefaultAddress = "1 moore Road, Darthmouth , Nova Scotia MB-123"
+
 class Cart extends Component {
   
    state = {...initialState }
@@ -276,7 +276,7 @@ const Item = ( {item} ) => {
         <View style = {{ flex:2}}>
         <CustomText
      label =  "Product Code"
-     text = {item.productId}
+     text = {item.productCode}
     />
         </View>
  

@@ -12,7 +12,7 @@ import Products from "./Products";
       err:""
   }
   _renderItem = ({item}) => {
-  
+
     return( 
      
         
@@ -47,7 +47,7 @@ import Products from "./Products";
                {
                    data.length?  <FlatList
                    data={ data}
-                ItemSeparatorComponent = { () => <View style = {{ marginTop:ScreenHeight*0.0388}}></View>}
+                    ItemSeparatorComponent = { () => <View style = {{ marginTop:ScreenHeight*0.0388}}></View>}
                    renderItem={ this._renderItem}
                    
                    keyExtractor={(item, index) => item+index}

@@ -5,7 +5,8 @@ import { bold_Text} from "../Styles";
 import OrderHeading from "./orderHeading";
 import OrderDetails from "./OrderDetails";
 import Modal from "react-native-modal";
-import CustomHorizontalText from "./CustomHorizontalText"
+import CustomHorizontalText from "./CustomHorizontalText";
+import { withNavigation } from "react-navigation"
 import  { 
  
     Entypo,
@@ -14,7 +15,7 @@ import  {
   
 } from "@expo/vector-icons"
 
-export default class  OrderCard extends Component   {
+ class  OrderCard extends Component   {
     state = {
         viewMore : false,
         animation   : new Animated.Value(),
@@ -31,6 +32,8 @@ export default class  OrderCard extends Component   {
       }
       _renderItem = ({item }) => {
         const { orderDetails } = this.props 
+         console.log("order details in order card" , orderDetails)
+         console.log("item" , item )
       return(<View>
           <Text style = {{ paddingLeft:25}}>{item.description}</Text>
                     <View style = { { paddingLeft:25}}>
@@ -49,40 +52,6 @@ export default class  OrderCard extends Component   {
                     </View>
       </View>)
     }
-    _setMaxHeight(event){
-        this.setState({
-            maxHeight   : event.nativeEvent.layout.height
-        });
-    }
-    
-    _setMinHeight(event){
-        this.setState({
-            minHeight   : event.nativeEvent.layout.height
-        });
-    }
-
-    toggle(){
-        console.log(this.state)
-        
-        let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
-            finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
-    
-        this.setState({
-            expanded : !this.state.expanded  //Step 2
-        });
-    
-        this.state.animation.setValue(initialValue);  //Step 3
-        Animated.spring(     //Step 4
-            this.state.animation,
-            {
-                toValue: finalValue
-            }
-        ).start();  //Step 5
-    }
-
-
-
-    
     render() {
         const { 
             // productCode ,
@@ -91,34 +60,28 @@ export default class  OrderCard extends Component   {
             shippingAddress ,
             // quantity,
             poNumber, 
-            
            } = this.props.orderDetails
-          const { isModalVisible , expanded } = this.state
+            const { orderDetails } = this.props
           return( 
-              <Animated.View style = { this.state.animation}>
-                  
-              <View onLayout={this._setMinHeight.bind(this)}>
-                  
-                <Card style = {{ borderRadius:15 , height:150}} onLayout={this._setMaxHeight.bind(this)}>
+              <View>   
+                <Card style = {{ borderRadius:15 , height:200}}>
             
                             <View style = {{ flexDirection:"column" }}>
                                 <OrderHeading
                                 poNumber  = { poNumber}
-                                onPressMethod = { this.toggle.bind(this) }
-                                label = { expanded ? "View less" : "View more"}
+                                onPressMethod = { () => this.props.navigation.navigate("NewOrderDetails", { orderDetails}) }
+                                label = "View more"
                                 />
                                 <View style ={{ flexDirection:"row" , paddingLeft:10}}>
-                                <MaterialIcons
-                                name="date-range"
-                                size = {20} 
-                                color = "orange"
-                                />
-                                <View>
-                                    
-                            
-                                <Text style = {{ ...bold_Text , paddingLeft:10}}> Date Of Order </Text>
-                            <Text style = {{ paddingLeft:15}}>{createdDate}</Text>
-                            </View>
+                                        <MaterialIcons
+                                        name="date-range"
+                                        size = {20} 
+                                        color = "orange"
+                                        />
+                                    <View>
+                                        <Text style = {{ ...bold_Text , paddingLeft:10}}> Date Of Order </Text>
+                                        <Text style = {{ paddingLeft:15}}>{createdDate.slice(0,10)}</Text>
+                                     </View>
                                 </View>
                                 
                                 <View style = {{ flexDirection:"row" , paddingLeft:10}}>
@@ -127,11 +90,10 @@ export default class  OrderCard extends Component   {
                                                         size = {20} 
                                                         color = "orange"/>
                                             <View>
-                                                            
-                                                        <Text style = {{ ...bold_Text , paddingLeft:10} }>Shipping Address</Text>
-                                                        <Text style = {{ paddingLeft:15}} numberOfLines= {0.5}>{shippingAddress}</Text>
-                                        </View> 
-                            </View>
+                                              <Text style = {{ ...bold_Text , paddingLeft:10} }>Shipping Address</Text>
+                                              <Text style = {{ paddingLeft:15}} numberOfLines= {0.5}>{shippingAddress}</Text>
+                                            </View> 
+                                 </View>
 
                             <View style = {{ flexDirection:"row" , paddingLeft:10}}>
                                         <AntDesign
@@ -139,28 +101,21 @@ export default class  OrderCard extends Component   {
                                                         size = {20} 
                                                         color = "orange"/>
                                             <View>
-                                                            
-                                                        <Text style = {{ ...bold_Text , paddingLeft:10} } >Items </Text>
-                                                        
-                                        </View> 
+                                               <Text style = {{ ...bold_Text , paddingLeft:10} } >Items </Text>
+                                             </View> 
                             </View>
                                 <FlatList
                                 data = { this.props.orderDetails.Product}
                                 renderItem = { this._renderItem}
                                 />
-                            
-                            
                             </View>
             </Card>
-
-</View>     
-           
-</Animated.View>
-        )
-
-    }
+</View>)}
 
 
      
     
 }
+
+
+export default withNavigation(OrderCard)

@@ -40,13 +40,14 @@ const  initialState = {
       
 
       handleSave = ( productId ,productCode, quantity  , uom ) => {
+
         const { closeModal } = this.props
         Keyboard.dismiss()
          this.setState(({...initialState}) , ()=> {
            validation_functions.resetValidators()
            closeModal()
          })
-          console.log(" state of Product",this.state)
+         console.log("product Id in product modal", productId)
         this.props.saveItem({productId,productCode, quantity , UOM:uom})
       }
     render() {
@@ -128,7 +129,7 @@ const mapDispatchToProps = ( dispatch ) => {
  }
  
  const mapStateToProps = ( state ) => {
-  //  console.log("state" , state )
+   console.log("state" , state )
    return({
      token: state.tokenReducer.token,
      items:state.orderReducer.items

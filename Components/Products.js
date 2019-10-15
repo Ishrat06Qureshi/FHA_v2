@@ -24,7 +24,7 @@ import ProductModal from "./ProductModal"
   render() {
      const  { productCode , description , uri, uom,  productId } = this.props
      const { isModalVisible } = this.state
-     console.log(productId)
+    
     return ( 
        <View>
          <Card>

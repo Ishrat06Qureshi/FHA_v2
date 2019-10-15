@@ -28,10 +28,15 @@ const NewProfileStack  = createStackNavigator({
      Profile,
      EditProfile
 })
+
+const OrderStack = createStackNavigator({
+    OrderList,
+    NewOrderDetails
+})
 const TabBar = createBottomTabNavigator(
     {
             Home: {
-            screen : NewOrderDetails,
+            screen : OrderStack,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
             <AntDesign name='home' size={25} color={tintColor} /> )})
             },

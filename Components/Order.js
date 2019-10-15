@@ -1,25 +1,41 @@
 import React  , { Component } from "react";
 import { View , Text , FlatList , TouchableOpacity  } from "react-native";
-
-
 import OrderCard from "./OrderCard"
 import {  Heading_style } from "../Styles";
-import { Card } from "native-base";
+import { Card , Spinner } from "native-base";
 import axios from "axios"
 import {  connect } from "react-redux"
+import { NavigationEvents } from 'react-navigation';
+import SaveOrderHistoryMiddleware from "../Middleware/SaveOrderHistoryMiddleware"
 
  class OrderList extends Component {
     state = {
-        data:[]
+        data:[],
+        
     }
-  componentDidMount () {
+    OnLoader = () => {
+        this.setState(({ isLoading:true}))
+    }
+    OffLoader = () => {
+      this.setState(({ isLoading:false}))
+    }
+    
+    FetchOrder = () => {
       const { id } = this.props.userData
       axios.get(`http://13.59.64.244:3000/api/userorder/${id}`).
-      then(( response) => this.setState(({ data:response.data}))).
+      then(( response) => this.setState(({ data:response.data , isLoading:false}))).
       catch( err => console.log(err.response.data) )
-
-
-  }
+    }
+    
+  componentDidMount () {
+    const { id } = this.props.userData
+    const data = {
+      id, 
+      OnLoader:this.OnLoader,
+      OffLoader:this.OffLoader,
+    }
+     this.props.LoadOrders( data )
+    }
 
 _renderItem = ({item}) => {
   
@@ -30,18 +46,25 @@ _renderItem = ({item}) => {
     />)
 }
     render() {
-        const {data } = this.state
+      // <NavigationEvents
+      // onDidFocus={() => this.FetchOrder()} />   
+        const {isLoading } = this.state
+        const { orderHistory } = this.props
         return( <View style = {{ flex:1 , justifyContent:"center"}}>
         <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:50 , marginBottom:25}}>
         <Text style = { Heading_style }> Your Orders</Text>
         </View>
          
-         
-        <FlatList
-         data = { data }
-         renderItem = { this._renderItem}
-         keyExtractor = {(item, index) => item.poNumber}
-        />
+          {isLoading ? <Spinner color = "red"/> :
+            <FlatList
+         data = {  [1,2,3,4,5]  }
+         renderItem = { ({item}) => { return( <View>
+           <Text>{item}</Text>
+         </View>)}}
+         keyExtractor = {(item, index) => item+index}
+        />}
+       
+       
         
         
     </View> )
@@ -51,8 +74,16 @@ _renderItem = ({item}) => {
  
 
 const mapStateToProps = ( state ) => {
+  console.log("state",state)
   return({
-    userData:state.UserDataReducer.UserData
+    userData:state.UserDataReducer.UserData,
+    // orderHistory: state.OrderHistory.Orders
   })
 }
-export default connect( mapStateToProps , null )(OrderList)
+
+const mapDispatchToProps = ( dispatch ) => {
+  return({
+    LoadOrders:( data ) => dispatch(SaveOrderHistoryMiddleware( data )) 
+  })
+}
+export default connect( mapStateToProps , mapDispatchToProps )(OrderList)

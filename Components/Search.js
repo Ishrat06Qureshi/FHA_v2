@@ -80,11 +80,6 @@ export default class Search extends React.Component {
 
    _renderItem  = ({ item }) => {
     return( 
-     
-  
-  
-     
-     
        <TouchableOpacity  onPress = {() => this.selected( item )}>
          <View style = {{ paddingLeft:15}}>
         
@@ -117,26 +112,26 @@ export default class Search extends React.Component {
             placeholder='Search Product here'
             onChangeText = { (userInput) => this.handleInput( userInput )}
             value = { this.state.userInput}
-     
             />
           </Item>
           <View> 
           { showSuggestions ? 
-       
-            
           <FlatList
            data = { filterList }
            renderItem = {this._renderItem}
-           _keyExtractor =  {(item, index) => item.productCode+index }
+           keyExtractor =  {(item, index) => item+index }
            keyboardShouldPersistTaps='always'
 
           /> : null}
-           {  searchedProducts.length ?  searchedProducts.map(( item ) => <Products  
+           {  searchedProducts.length ?  searchedProducts.map(( item , index  ) => 
+           
+           <Products  
             productCode  = { item.productCode}
       description = { item.description} 
       uri={item.imageLink}
       uom = {item.uom}
-      /> ) 
+      productId = {item.id}
+      />  ) 
            : dataLoading ? <Spinner color ="red" size = {25}/>: null }
       </View>
 

@@ -56,7 +56,7 @@ class OrderPlacement extends Component {
   render() {
     const {  isDefaultAddress , showAddress} = this.state
      const { productCode  , UOM  } =  this.props.navigation.state.params
-     console.log("product Code" , productCode)
+     
    
       return (
      

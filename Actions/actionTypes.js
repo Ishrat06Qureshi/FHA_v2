@@ -5,3 +5,4 @@ export const SAVE_ITEMS = "SAVE_ITEMS";
 export const EMPTY_ITEMS = "EMPTY_ITEMS";
 export const SAVE_ERROR = "SAVE_ERROR";
 export const EDIT_PROFILE = "EDIT_PROFILE";
+export const SAVE_TOTAL_ORDER = "SAVE_TOTAL_ORDER";
