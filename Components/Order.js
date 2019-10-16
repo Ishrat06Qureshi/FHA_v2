@@ -11,12 +11,13 @@ import SaveOrderHistoryMiddleware from "../Middleware/SaveOrderHistoryMiddleware
  class OrderList extends Component {
     state = {
         data:[],
-        
+        isLoading:""
     }
     OnLoader = () => {
         this.setState(({ isLoading:true}))
     }
     OffLoader = () => {
+      console.log("is loader off")
       this.setState(({ isLoading:false}))
     }
     
@@ -46,10 +47,8 @@ _renderItem = ({item}) => {
     />)
 }
     render() {
-      // <NavigationEvents
-      // onDidFocus={() => this.FetchOrder()} />   
         const {isLoading } = this.state
-        const { orderHistory } = this.props
+        const { Orders } = this.props
         return( <View style = {{ flex:1 , justifyContent:"center"}}>
         <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:50 , marginBottom:25}}>
         <Text style = { Heading_style }> Your Orders</Text>
@@ -57,16 +56,11 @@ _renderItem = ({item}) => {
          
           {isLoading ? <Spinner color = "red"/> :
             <FlatList
-         data = {  [1,2,3,4,5]  }
-         renderItem = { ({item}) => { return( <View>
-           <Text>{item}</Text>
-         </View>)}}
+         data = {  Orders }
+         renderItem = { this._renderItem}
          keyExtractor = {(item, index) => item+index}
-        />}
-       
-       
-        
-        
+        />}  
+         
     </View> )
     }
         
@@ -74,10 +68,11 @@ _renderItem = ({item}) => {
  
 
 const mapStateToProps = ( state ) => {
-  console.log("state",state)
+
+  console.log("state" , state)
   return({
     userData:state.UserDataReducer.UserData,
-    // orderHistory: state.OrderHistory.Orders
+    Orders:state.OrderHistoryReducer.Orders
   })
 }
 

@@ -3,16 +3,15 @@ class OrderHistory {
     static  ADD_HISTORY = "EDIT_HISTORY";
   
     static SAVE_HISTORY = ( history ) => {
-        
      return({
          type:this.SAVE_HISTORY,
          history
      })
     }
-    static ADD_HISTORY = ( data ) => {
+    static ADD_HISTORY = ( history ) => {
       return({
           type:this.ADD_HISTORY,
-          data
+          history
       })
      }
   }

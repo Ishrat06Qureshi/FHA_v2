@@ -1,6 +1,6 @@
 //Important
 import React , { Component } from "react";
-import { View , Text  , FlatList , Alert , ScrollView } from "react-native";
+import { View , Text  , FlatList , Alert , ScrollView , ActivityIndicator  ,  Spinner } from "react-native";
 import { connect } from "react-redux";
 import CustomText from "./CustomText";
 import { Heading_style , Red_Button , White_Text , 
@@ -15,7 +15,7 @@ import axios from "axios"
 import { NavigationEvents } from 'react-navigation';
 import Input from "./Input";
 import DeleteItem from "../Actions/EmptyOrder"
-
+import SaveOrderMiddleware from "../Middleware/SaveOrderMiddleware"
 const initialState = {
   orderPlace:false,
   lineOne:"",
@@ -27,8 +27,8 @@ const initialState = {
   Different:false,
   isDefaultAddress:false,
   SameAsOfficeActive:false,
-  DifferentActive:false
-  
+  DifferentActive:false,
+  isLoading:false
 }
 
 class Cart extends Component {
@@ -44,33 +44,51 @@ class Cart extends Component {
     Proceed= () => {
         this.setState(({ orderPlace: true }))
     }
-   
     
-
+     orderConformation = () => {
+        return(Alert.alert(
+          'Order Confirmation',
+          'Your order has been received , FHA will shortly contact you',
+          [
+            
+            
+            {text: 'OK', onPress: () => this.props.navigation.navigate("Home")},
+          ],
+          {cancelable: false},
+        ))
+     }
+  
     placeOrder = () => {
-      const { items , userData , DeleteItem  } = this.props
+      const { items , userData , OrderSave } = this.props
       const { sameAsOffice, lineOne, city, province, postalCode } = this.state
       const shippingAddress =  sameAsOffice ? userData.officeAddress :  `${lineOne},${city} , ${province},${postalCode}`
-      console.log(userData)
-      axios.post("http://13.59.64.244:3000/api/order" , {createdBy:userData.id,
-       shippingAddress, 
-       productDetail:items}).
-      then(( response) => {
-        if ( response.status === 200) {
-          console.log(response)
-          DeleteItem()
-          Alert.alert(
-            'Order Confirmation',
-            'Your order has been received , FHA will shortly contact you',
-            [
+      const data = {
+        createdBy:userData.id,
+        shippingAddress,
+        productDetail:items,
+        orderConformation:this.orderConformation,
+       
+      }
+      // axios.post("http://13.59.64.244:3000/api/order" , {createdBy:userData.id,
+      //  shippingAddress, 
+      //  productDetail:items}).
+      // then(( response) => {
+      //   if ( response.status === 200) {
+      //     console.log(response)
+      //     DeleteItem()
+      //     Alert.alert(
+      //       'Order Confirmation',
+      //       'Your order has been received , FHA will shortly contact you',
+      //       [
               
               
-              {text: 'OK', onPress: () => this.props.navigation.navigate("Home")},
-            ],
-            {cancelable: false},
-          );
-        }
-      } ).catch ( err => console.log(err.response.data))
+      //         {text: 'OK', onPress: () => this.props.navigation.navigate("Home")},
+      //       ],
+      //       {cancelable: false},
+      //     );
+      //   }
+      // } ).catch ( err => console.log(err))
+       OrderSave( data )
     }
 
 
@@ -100,13 +118,13 @@ class Cart extends Component {
 
   
      const { orderPlace ,
-        lineOne,
+     lineOne,
      city,
      province,
      postalCode,
      showAddress,
     sameAsOffice,
-    isDefaultAddress , differentOfficeAddress } = this.state
+    isDefaultAddress , differentOfficeAddress  , isLoading } = this.state
      const disable = validation_functions.isFormValid(["lineOne","city","province" , "postalCode" ])
      const { items } = this.props
     console.log( lineOne , city , province , postalCode )
@@ -116,7 +134,8 @@ class Cart extends Component {
           <View>
              <NavigationEvents
       onDidBlur={() => this.setState(({...initialState}))}
-      />
+      />   
+      
              { orderPlace ? <View>
               <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:50 , marginBottom:25}}>
             <Text style = { Heading_style }> Place Order</Text>
@@ -307,7 +326,8 @@ const mapStateToProps = ( state ) => {
   const mapDispatchToProps = ( dispatch  ) => {
 
     return({
-      DeleteItem : (  ) => dispatch(DeleteItem())
+      DeleteItem : (  ) => dispatch(DeleteItem()),
+      OrderSave : (data) => dispatch(SaveOrderMiddleware(data))
    
     })
   } 

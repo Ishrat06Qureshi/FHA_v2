@@ -3,7 +3,8 @@ import OrderHistory from "../Actions/OrderHistory";
 const initialState = {
     Orders:[]
 }
-const OrderHistory = ( state = initialState , action ) => {
+const OrderHistoryReducer = ( state = initialState , action ) => {
+    
   switch( action.type) {
       case OrderHistory.SAVE_HISTORY:{
           return({
@@ -14,7 +15,7 @@ const OrderHistory = ( state = initialState , action ) => {
       case OrderHistory.ADD_HISTORY :{
           return({
                ...state,
-               Orders:state.Orders.push(action.data)
+               Orders:[...state.Orders , action.history]
           })
       }
       default:{
@@ -23,4 +24,4 @@ const OrderHistory = ( state = initialState , action ) => {
   }
 }
 
-export default OrderHistory 
+export default OrderHistoryReducer 

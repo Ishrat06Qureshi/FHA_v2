@@ -1,10 +1,8 @@
 import { createDrawerNavigator , createStackNavigator} from "react-navigation"
-
-
 import Order from "../Components/Order";
 import Profile from "../Components/Profile";
 import EditProfile from "../Components/EditProfile";
-import TabBar from "./tabNavigation"
+import TabBar from "./tabNavigation";
 
 const ProfileStack  =createStackNavigator({
     Profile:{
