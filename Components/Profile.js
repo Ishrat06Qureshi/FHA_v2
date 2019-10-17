@@ -37,12 +37,12 @@ class Profile extends Component {
                  
                 
                 <View style = {{ 
-                  justifyContent:"space-between" ,
+                  justifyContent:"space-around" ,
                   alignItems:"center",
                   marginTop:20 ,
                   marginBottom:25,
                   flexDirection:"row"}}>
-                        <Text style = { {...bold_Text , fontSize: 25 , }  }>{companyName}</Text>
+                        <Text style = { {...bold_Text , fontSize: 25 , textTransform:"capitalize" }  }>{companyName}</Text>
                         <TouchableOpacity onPress = { () => this.props.navigation.navigate("EditProfile")}>
                            <Text style = {{ color:"#828282"}}> Edit</Text>
                         </TouchableOpacity>
@@ -52,27 +52,27 @@ class Profile extends Component {
             >
             
                   <CustomTextWithIcon
-                     IconComponent = {() =>  <AntDesign name= "barcode" size = {25}  color = "#DA011D"/>}
+                     IconComponent = {() =>  <AntDesign name= "barcode" size = {25}  color = "orange"/>}
                      label = "Customer Number"
                      text = { customerNumber }
                   />
                      <CustomTextWithIcon
-                     IconComponent = {() =>  <MaterialIcons name= "person-pin" size = {25}  color = "#DA011D"/>}
+                     IconComponent = {() =>  <MaterialIcons name= "person-pin" size = {25}  color = "orange"/>}
                      label = "Contact Person Name"
                      text = { contactPersonName }
                   />
                      <CustomTextWithIcon
-                     IconComponent = {() =>  <MaterialIcons name= "email" size = {25}  color = "#DA011D"/>}
+                     IconComponent = {() =>  <MaterialIcons name= "email" size = {25}  color = "orange"/>}
                      label = "Email"
                      text = { email }
                   />
                      <CustomTextWithIcon
-                     IconComponent = {() =>   <Entypo name= "address" size = {25} color = "#DA011D"/>}
+                     IconComponent = {() =>   <Entypo name= "address" size = {25} color = "orange"/>}
                      label = "Office Address"
                      text = {`${lineOne} , ${city} , ${province} , ${postalCode}`}
                   />
                      <CustomTextWithIcon
-                     IconComponent = {() => <Feather  name= "phone" size = {25}  color = "#DA011D"/>}
+                     IconComponent = {() => <Feather  name= "phone" size = {25}  color = "orange"/>}
                      label = "Phone Number"
                      text = { phoneNumber }
                   />

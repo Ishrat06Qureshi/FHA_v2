@@ -8,7 +8,7 @@ const CustomTextWithIcon = ( props ) => {
            <IconComponent/>
           <Text style = { {...bold_Text , paddingLeft:15 } }> {label}</Text>
           </View>
-          <Text style = {{ paddingLeft:25}}> { text }</Text>
+          <Text style = {{ paddingLeft:45}}> { text }</Text>
    </View>)
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {  createBottomTabNavigator, createMaterialTopTabNavigator , createStackNavigator   } from "react-navigation";
-import {AntDesign , MaterialIcons , Ionicons} from "@expo/vector-icons";
+import {AntDesign , MaterialIcons , Ionicons , MaterialCommunityIcons} from "@expo/vector-icons";
 
 import Home from "../Components/newHome";
 import OrderList from "../Components/Order";
@@ -36,7 +36,7 @@ const OrderStack = createStackNavigator({
 const TabBar = createBottomTabNavigator(
     {
             Home: {
-            screen : OrderStack,
+            screen : Home,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
             <AntDesign name='home' size={25} color={tintColor} /> )})
             },
@@ -45,16 +45,21 @@ const TabBar = createBottomTabNavigator(
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <AntDesign name='search1' size={25} color={tintColor} /> )})
             },
-            Order:{ 
+            Cart:{ 
             screen : Cart, 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <MaterialIcons name = 'add-shopping-cart' size={25} color={tintColor} /> )})
             },
-            // Profile:{ 
-            //     screen : ProfileTab, 
-            //     navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            //         <Ionicons name = 'ios-person' size={25} color={tintColor} /> )})
-            //     },
+            Profile:{ 
+                screen : NewProfileStack, 
+                navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
+                    <Ionicons name = 'ios-person' size={25} color={tintColor} /> )})
+                },
+             Order:{ 
+                    screen : OrderStack, 
+                    navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
+                        <MaterialCommunityIcons name = 'chart-histogram' size={25} color={tintColor} /> )})
+                    },
             Logout : {
             screen:Logout , 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (

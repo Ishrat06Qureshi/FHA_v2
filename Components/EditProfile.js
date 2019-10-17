@@ -11,7 +11,7 @@ import { Spinner } from "native-base"
 import { disable_Button_Style ,
   disable_Text_Style , 
   enable_Button_Style ,
-   enable_Text_Style} from "../Styles"
+   enable_Text_Style , bold_Text} from "../Styles"
  const initialState = {
    
  
@@ -144,6 +144,8 @@ import { disable_Button_Style ,
                           showsVerticalScrollIndicator = { false }
 
                          >
+                          <Text style = { {...bold_Text , fontSize: 25 , textTransform:"capitalize" }  }>Edit profile </Text>
+                          
                          <Input
                             label = "COMPANY NAME"
                             placeHolderText="fastening housing atlantic"
