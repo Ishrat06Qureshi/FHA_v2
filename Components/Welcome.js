@@ -5,6 +5,10 @@ import {
    TouchableOpacity,
    StyleSheet , BackHandler } 
    from "react-native";
+
+   import { White_Button} from "../Styles"
+   import * as Style from "../Styles/index";
+   
    export default class Welcome extends React.Component {
      navigateToLogin = () => {
        console.log("login")
@@ -27,12 +31,12 @@ import {
         </View>
 
         <View style = { styles.button_container }>
-          <TouchableOpacity style = { [styles.button , styles.login_button]} onPress = { this.navigateToLogin } >
-          <Text style = { styles.login_text}> Log in </Text>
+          <TouchableOpacity style = { White_Button } onPress = { this.navigateToLogin } >
+          <Text style = { [ styles.sign_up_text , Style.boldText]}> Log in </Text>
           </TouchableOpacity>
 
-           <TouchableOpacity  style = {[ styles.button  , styles.sign_up ]} onPress = { this.navigateToSignup }>
-               <Text style = {styles.sign_up_text}> Sign up</Text>
+           <TouchableOpacity  style = { White_Button } onPress = { this.navigateToSignup }>
+               <Text style = {[styles.sign_up_text , Style.boldText ]}> Sign up</Text>
           </TouchableOpacity>
 
         </View>
@@ -46,14 +50,15 @@ import {
        flex:1,
        height:"100%",
        width:"100%",
-       backgroundColor:"#fff"
+       backgroundColor:"#DA011D"
      } ,
      topText:{
-       color:	"#707070",
-       fontSize:32
+       
+       fontSize:32,
+       color:"#fff"
      },
      bottomText:{
-         color:	"#707070",
+         color:	"#fff",
          fontSize:25
      },
      text_container:{
@@ -79,7 +84,7 @@ import {
      button_container :{
         flex:3,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom:80
      },

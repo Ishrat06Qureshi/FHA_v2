@@ -16,13 +16,6 @@ import NewOrderDetails from "../Components/NewOrderDetails"
 
 
 
-const ProfileTab = createMaterialTopTabNavigator({
-    Profile:{
-        screen : ProfileStack ,
-            navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            <AntDesign name='home' size={25} color={tintColor} /> )})
-    }
-})
 
 const NewProfileStack  = createStackNavigator({
      Profile,
@@ -36,7 +29,7 @@ const OrderStack = createStackNavigator({
 const TabBar = createBottomTabNavigator(
     {
             Home: {
-            screen : Home,
+            screen : HomeStack,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
             <AntDesign name='home' size={25} color={tintColor} /> )})
             },

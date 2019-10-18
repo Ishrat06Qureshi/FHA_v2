@@ -1,5 +1,5 @@
 import React , { Component } from "react";
-import { FlatList , View, Text , Dimensions } from "react-native";
+import { FlatList , View, Text , Dimensions , TouchableOpacity } from "react-native";
 import { Spinner } from "native-base";
 import axios from "axios";
 
@@ -10,6 +10,10 @@ import Products from "./Products";
   state = {
       data:[],
       err:""
+  }
+
+  OnMoreLoading = () => {
+    this.setState(({ onMoreLoad: true}))
   }
   _renderItem = ({item}) => {
 
@@ -31,30 +35,18 @@ import Products from "./Products";
        const {  data , err } = this.state
        return (
            <View style = {{ flex:1 , }}>
-               {/* { err ? <Text>{err}</Text>: data.length ?  <FlatList
-                data = { data }
-                renderItem = {( item ) => <Text>{item.productCode}</Text> }
-                ListFooterComponent = {() => <Spinner color = "red" />}
-               />:<Spinner color = "red"/>} */}
-               {/* {
-                    data.length ?  <FlatList
-                    data = { data }
-                    // renderItem = {this._renderItem }
-                    renderItem = { ({item}) => <Text>{item.productCode}</Text>}
-                   
-                   />:<Spinner color = "red"/>}
-               } */}
+              
                {
-                   data.length?  <FlatList
+                   data.length?  
+                 
+                   <FlatList
                    data={ data}
                     ItemSeparatorComponent = { () => <View style = {{ marginTop:ScreenHeight*0.0388}}></View>}
                    renderItem={ this._renderItem}
                    
-                   keyExtractor={(item, index) => item+index}
-
-                  
-                    
-            />  : <Spinner color = "red"/>
+                   keyExtractor={(item, index) => item+index} /> 
+        
+            : <Spinner color = "red"/>
                }
            </View>
                

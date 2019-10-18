@@ -1,6 +1,6 @@
 import React from "react"
 import validators from "./validations";
-import {View , Text } from "react-native";
+import { Text } from "react-native";
 
 const  resetValidators = () => {
     Object.keys(validators).forEach((fieldName) => {
@@ -33,12 +33,12 @@ const  resetValidators = () => {
   }
 
 
-  const displayValidationErrors = ( fieldName , customLabelColor ) => {
+  const displayValidationErrors = ( fieldName  ) => {
     
     const validator =  validators[fieldName];
     const { errors } = validator
      return ( <Text style={{ 
-       color: customLabelColor ? "white":"red"  }}>
+       color: "red"  }}>
        {errors[0]}
        </Text>)
   }

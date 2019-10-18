@@ -1,6 +1,6 @@
 import React , { Component } from "react";
-import { View , Text  , FlatList } from "react-native";
-import { Spinner } from "native-base"
+import { Spinner  , Text  } from "native-base";
+import { View , TouchableOpacity , FlatList  , ScrollView} from "react-native"
 import axios from "axios";
 import Products from "./Products";
 import Heading_style from  "../Styles/index"
@@ -16,9 +16,14 @@ export default class AllProducts extends Component {
         dataLength:0,
         activeTab : true,
         details:false,
-        moreloader:true
-        
+        moreloader:true,
+        showLoadMore:false
       }
+
+    changeShowLoadMore = () => {
+      console.log( this.state.showLoadMore )
+      this.setState(({ showLoadMore:true}))
+    }
 
 
 
@@ -26,6 +31,7 @@ export default class AllProducts extends Component {
   
         return( 
          
+       
             
         <Products
           productCode  = { item.productCode }
@@ -33,10 +39,11 @@ export default class AllProducts extends Component {
           uri = {item.imageLink}
           uom = {item.uom}
         />
-        
+       
         )
     }
 
+    
     fetchData = () => {
         const { skippedProducts } = this.state
         const { productName }=  this.props.navigation.state.params
@@ -48,7 +55,9 @@ export default class AllProducts extends Component {
             data:skippedProducts === 0 ? Array.from(response.data) :
              response.data.length? [...preState.data , ...response.data ]  :[...preState.data],
             isLoading : false,
-            moreloader:!length? false:true
+            showLoadMore:false
+            
+            
           })
         })).catch ( err=> this.setState(({ serverError:err , isLoading:false })))
       }
@@ -58,53 +67,49 @@ export default class AllProducts extends Component {
         this.setState(
           (prevState, nextProps) => ({
             skippedProducts: prevState.skippedProducts + 5,
-            loadingMore: true
+            loadingMore: true,
+            showLoadMore:true
           }),
           () => {
-            console.log("skipped products after adding 10" , this.state.skippedProducts)
+            console.log("skipped products after adding 5" , this.state.skippedProducts)
             this.fetchData();
           }
         );
       };
-
-_loader = () => {
   
-    return( 
-
-    <View style={{ flex: 1, flexDirection: 'column',
-     alignItems: 'center', justifyContent: 'center', paddingVertical: 10 }}>
-      {
-        this.state.moreloader ? <Spinner color = "red"/> : null 
-      }
-      
-      
-    </View>
-    )
-}
-
     render() {
         const { data , isLoading , skippedProducts } = this.state
         const { productName }=  this.props.navigation.state.params
-        // console.log("Skipped Products" , skippedProducts)
+        console.log( "data" , data )
         return( <View>
                   <View style = {{ justifyContent:"center" , alignSelf:"center" , marginTop:50 , marginBottom:25}}>
             <Text style = { Heading_style }> { productName } Products </Text>
             </View>
              
             {
-                data.length? <FlatList
+                data.length? 
+                <View>
+                  <ScrollView>
+                    
+                <FlatList
                 data={ data}
-              //   ItemSeparatorComponent={() => <View style={{ marginBottom:-350 }} />}
+             
                 renderItem={ this._renderItem}
-                onEndReached = { this._handleLoadMore }
-                // initialNumToRender={8}  
-                onEndReachedThreshold={0.5}
-                ListFooterComponent= { this._loader}
-                keyExtractor={(item, index) => item+index}
-
+                // onEndReached = { this._handleLoadMore }
+              
+              
+                // onEndReachedThreshold={0.5}
                
-                
-         />  : <Spinner color="red"/>
+                keyExtractor={(item, index) => item+index}
+                />
+             
+               { !this.state.showLoadMore ? <Loader fetchMoreData = { this. _handleLoadMore}/>: <Spinner color = "red"/> }
+                <View style  = {{ height:200 , width:"100%"}}></View>
+                {/* <View style  = {{ height:200 , width:"100%"}}></View>
+                <View style  = {{ height:200 , width:"100%"}}></View> */}
+               </ScrollView>
+             </View> 
+          : <Spinner color="red"/>
             }
                    
                    
@@ -114,3 +119,13 @@ _loader = () => {
         this.fetchData()
     } 
 } 
+
+
+const Loader = ( props ) => {
+  return( <View>
+    <TouchableOpacity onPress = { props.fetchMoreData}>
+      <Text style = {{ color:"red"}}> Load more </Text>
+    </TouchableOpacity>
+  </View>)
+}
+

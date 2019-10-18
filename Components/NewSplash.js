@@ -62,7 +62,7 @@ export default class Splash  extends React.Component {
 
      this.StartImageRotateFunction();
     setTimeout( () => {
-      this.props.navigation.navigate("NewLogin")
+      this.props.navigation.navigate("Welcome")
     } , 4500)
   }
 }

@@ -133,11 +133,11 @@ const handleCustomTransition = ({ scenes }) => {
 
 
 const WelcomeStack = createStackNavigator({
-  // Welcome:{
-  //   screen:Welcome,
-  //   navigationOptions: {
-  //     header: null}
-  // },
+  Welcome:{
+    screen:Welcome,
+    navigationOptions: {
+      header: null}
+  },
   NewLogin:{
     screen:Finalogin,
     navigationOptions: {

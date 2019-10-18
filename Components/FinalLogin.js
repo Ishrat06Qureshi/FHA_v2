@@ -79,14 +79,17 @@ const initialState = {
         flex:1 , 
         justifyContent:"center" ,
         alignItems:"center",
-        backgroundColor:"#DA011D"
+        backgroundColor:"#fff"
          }}>
                 <NavigationEvents
                onDidBlur={() => this.setState(({...initialState}))} />       
              
-                        { isLoading ? <Spinner color = "red" size = {25} />: <ScrollView keyboardShouldPersistTaps='always'>
+                        { isLoading ? <Spinner color = "red" size = {25} />: 
+                        <ScrollView 
+                        keyboardShouldPersistTaps='always'
+                        >
                         <Image
-                              source = {require("../assets/fastening-logo.png")}
+                              source = {require("../assets/fastening.png")}
                               style = {{
                                 height:135,
                                 width:"100%",
@@ -100,7 +103,7 @@ const initialState = {
                           onChangeText= { this.handleInputChange} 
                           errorName = "email" 
                           value = {email }
-                          customLabelColor = { true }
+                        
                          
                           />
 
@@ -111,14 +114,14 @@ const initialState = {
                           onChangeText= { this.handleInputChange}
                           errorName = "password" 
                           value = {password}
-                          customLabelColor = { true  }
+                        
                           />
 
                           <Button 
                           onPressMethod = { this.handleLogin}
                           text = "Login"
-                          buttonStyle = {disable ? disable_Button_Style : disable_Button_Style}
-                          textStyle = { disable ? disable_Text_Style : disable_Text_Style }
+                          buttonStyle = {disable ? enable_Button_Style : disable_Button_Style}
+                          textStyle = { disable ? enable_Text_Style : disable_Text_Style }
                           disable = { disable}
                           />
                           <TouchableOpacity onPress = {() => 
