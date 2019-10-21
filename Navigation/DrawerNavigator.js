@@ -1,30 +1,31 @@
-import { createDrawerNavigator , createStackNavigator} from "react-navigation"
+import React , { Component } from "react"
+import {  createStackNavigator , createDrawerNavigator } from "react-navigation";
 import Order from "../Components/Order";
 import Profile from "../Components/Profile";
 import EditProfile from "../Components/EditProfile";
+import {HomeStack, ProfileStack} from "./StackNavigators"
 import TabBar from "./tabNavigation";
+import * as styles from "../Styles"
+import { Entypo } from "@expo/vector-icons";
+import CustomMainHeader from "../Components/CustomMainHeader";
+import mainHome from "../Components/mainHome"
 
-const ProfileStack  =createStackNavigator({
-    Profile:{
-        screen:Profile,
-        navigationOptions: {
-         header: null},
-      },
-      EditProfile:{
-        screen:EditProfile,
-        navigationOptions: {
-         header: null},
-      }
-
-})
-const HomeTab = createStackNavigator({
-    Home:TabBar,
-})
-const Sidedrawer = createDrawerNavigator({
-    HomeTab,
-    Order,
-    ProfileStack
-    
+const DashboardStack = createStackNavigator({
+    DashboardTabNavigator  : mainHome 
+} , {
+    defaultNavigationOptions : ({ navigation }) => {
+        return {
+            headerLeft:  
+            // <Entypo name = "menu" size  = {25}  
+            // style = { styles.menu_styles } 
+            //  onPress = {() => navigation.openDrawer()}/>
+            <CustomMainHeader screenProps = { navigation }/>
+        }
+    }
 })
 
-export default Sidedrawer
+const AppDrawerNavigator = createDrawerNavigator({
+    Home:DashboardStack
+})
+
+export default AppDrawerNavigator

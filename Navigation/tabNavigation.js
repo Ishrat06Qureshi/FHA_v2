@@ -1,6 +1,7 @@
 import React from "react";
-import {  createBottomTabNavigator, createMaterialTopTabNavigator , createStackNavigator   } from "react-navigation";
-import {AntDesign , MaterialIcons , Ionicons , MaterialCommunityIcons} from "@expo/vector-icons";
+import {  createBottomTabNavigator,  createStackNavigator  , createAppContainer  } from "react-navigation";
+import {AntDesign , MaterialIcons , Octicons ,  Entypo , 
+    FontAwesome} from "@expo/vector-icons";
 
 import Home from "../Components/newHome";
 import OrderList from "../Components/Order";
@@ -12,8 +13,8 @@ import Profile from "../Components/Profile"
 import {HomeStack, ProfileStack} from "./StackNavigators"
 import OrderDetails from "../Components/OrderDetails"
 import NewOrderDetails from "../Components/NewOrderDetails"
-
-
+import * as styles from "../Styles"
+import CustomMainHeader from "../Components/CustomMainHeader"
 
 
 
@@ -26,33 +27,56 @@ const OrderStack = createStackNavigator({
     OrderList,
     NewOrderDetails
 })
+const SearchStack = createStackNavigator({
+    Search:{
+        screen:Search,
+        navigationOptions: ({ navigation }) => {
+            return {
+               
+                headerLeft:<CustomMainHeader screenProps = { navigation }/>
+            }
+    }
+}
+})
+const CartStack = createStackNavigator({
+    Cart:{
+        screen:Cart,
+        navigationOptions: ({ navigation }) => {
+            return {
+                
+                headerLeft:<CustomMainHeader screenProps = { navigation }/>
+            }
+    }
+}
+})
 const TabBar = createBottomTabNavigator(
     {
             Home: {
             screen : HomeStack,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            <AntDesign name='home' size={25} color={tintColor} /> )})
+            <Octicons name='tools' size={25} color={tintColor} /> )})
             },
             Search:{ 
-            screen : Search, 
+            screen : SearchStack,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-                <AntDesign name='search1' size={25} color={tintColor} /> )})
+                <FontAwesome name = 'search' size={25} color={tintColor} /> )})
             },
+          
             Cart:{ 
-            screen : Cart, 
+            screen : CartStack, 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <MaterialIcons name = 'add-shopping-cart' size={25} color={tintColor} /> )})
             },
-            Profile:{ 
-                screen : NewProfileStack, 
-                navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-                    <Ionicons name = 'ios-person' size={25} color={tintColor} /> )})
-                },
-             Order:{ 
-                    screen : OrderStack, 
-                    navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-                        <MaterialCommunityIcons name = 'chart-histogram' size={25} color={tintColor} /> )})
-                    },
+            // Profile:{ 
+            //     screen : NewProfileStack, 
+            //     navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
+            //         <Ionicons name = 'ios-person' size={25} color={tintColor} /> )})
+            //     },
+            //  Order:{ 
+            //         screen : OrderStack, 
+            //         navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
+            //             <MaterialCommunityIcons name = 'chart-histogram' size={25} color={tintColor} /> )})
+            //         },
             Logout : {
             screen:Logout , 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
@@ -64,8 +88,8 @@ const TabBar = createBottomTabNavigator(
             activeTintColor: '#DA011D',
             inactiveTintColor: '#707070',
             style:{ height: 70}
-            }
+            }  
   }
   )
 
-  export default  TabBar
+  export default  createAppContainer(TabBar)

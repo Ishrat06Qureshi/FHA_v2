@@ -24,6 +24,10 @@ const square_button = {
     width:120,
     
 }
+export  const menu_styles=  {
+    paddingLeft : 15,
+    color:red
+}
 export const White_Square_button = {
     ...square_button,
     borderColor:"red",

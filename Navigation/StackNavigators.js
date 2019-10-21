@@ -1,20 +1,28 @@
+import React from "react"
 import { createStackNavigator} from "react-navigation"
 
 import Home from "../Components/newHome";
 import AllProducts from "../Components/AllProducts";
 import Profile from "../Components/Profile";
-import EditProfile from "../Components/EditProfile"
-
+import EditProfile from "../Components/EditProfile";
+import TabBar from "./tabNavigation"
+import { Entypo } from "@expo/vector-icons";
+import * as styles from "../Styles";
+import CustomMainHeader from "../Components/CustomMainHeader"
 export const HomeStack = createStackNavigator({
     Home : {
         screen: Home,
-        navigationOptions: {
-        header: null} ,
+        navigationOptions: ({ navigation }) => {
+         return {
+             header:null,
+             headerLeft: <CustomMainHeader screenProps = { navigation }/>
+         }
+        }
     },
     AllProducts : {
         screen: AllProducts,
         navigationOptions: {
-        header: null} ,
+            headerTitle:"Products",} ,
     }
 })
 
@@ -37,3 +45,7 @@ export const ProfileStack = createStackNavigator({
             header: null} ,
     }
 })
+
+
+
+

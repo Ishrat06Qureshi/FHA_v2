@@ -1,9 +1,9 @@
 
 import { createStackNavigator ,
    createAppContainer ,
-    createBottomTabNavigator,
+
    createSwitchNavigator,
-   createDrawerNavigator  } from "react-navigation";
+  } from "react-navigation";
 
 
 
@@ -24,7 +24,7 @@ import Profile from "../Components/Profile"
 import EditProfile from "../Components/EditProfile";
 import Order from "../Components/Order"
 import Sidedrawer from "./DrawerNavigator"
-
+import AppDrawerNavigator from "./DrawerNavigator"
 
 
 import { fromLeft,fromRight } from 'react-navigation-transitions'
@@ -164,11 +164,13 @@ const AppSwitchNavigator = createSwitchNavigator({
       header: null}
     },
     WelcomeStack,
-    Home:{
-      screen: TabBar
-    },
+    // Home:{
+    //   screen: TabBar
+    // },
 
-    
+    Home:{
+      screen: AppDrawerNavigator
+    }
 
 })
 const AppContainer = createAppContainer( AppSwitchNavigator)
