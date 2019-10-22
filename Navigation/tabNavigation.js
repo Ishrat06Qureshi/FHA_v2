@@ -18,36 +18,14 @@ import CustomMainHeader from "../Components/CustomMainHeader"
 
 
 
-const NewProfileStack  = createStackNavigator({
-     Profile,
-     EditProfile
-})
 
-const OrderStack = createStackNavigator({
-    OrderList,
-    NewOrderDetails
-})
+
 const SearchStack = createStackNavigator({
-    Search:{
-        screen:Search,
-        navigationOptions: ({ navigation }) => {
-            return {
-               
-                headerLeft:<CustomMainHeader screenProps = { navigation }/>
-            }
-    }
-}
+    Search
 })
 const CartStack = createStackNavigator({
-    Cart:{
-        screen:Cart,
-        navigationOptions: ({ navigation }) => {
-            return {
-                
-                headerLeft:<CustomMainHeader screenProps = { navigation }/>
-            }
-    }
-}
+    Cart
+
 })
 const TabBar = createBottomTabNavigator(
     {
@@ -67,16 +45,7 @@ const TabBar = createBottomTabNavigator(
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <MaterialIcons name = 'add-shopping-cart' size={25} color={tintColor} /> )})
             },
-            // Profile:{ 
-            //     screen : NewProfileStack, 
-            //     navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            //         <Ionicons name = 'ios-person' size={25} color={tintColor} /> )})
-            //     },
-            //  Order:{ 
-            //         screen : OrderStack, 
-            //         navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            //             <MaterialCommunityIcons name = 'chart-histogram' size={25} color={tintColor} /> )})
-            //         },
+          
             Logout : {
             screen:Logout , 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (

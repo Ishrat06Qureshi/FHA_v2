@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 
 
 const CustomMainHeader = ( props  ) => {
-    console.log( "custom main header ",props )
+    
     return( <View>
         <Entypo name = "menu" size  = {35}  
                 style = { styles.menu_styles } 

@@ -1,7 +1,7 @@
 import React , { Component} from "react";
 import { View } from "react-native";
 import TabBar from "../Navigation/tabNavigation"
-import { MaterialCommunityIcons} from "@expo/vector-icons";
+import { MaterialCommunityIcons, } from "@expo/vector-icons";
 class mainHome extends Component {
     static navigationOptions = {
         drawerLabel: 'chat',
