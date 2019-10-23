@@ -1,64 +1,48 @@
 import React from "react";
-import {  createBottomTabNavigator,  createStackNavigator  , createAppContainer  } from "react-navigation";
-import {AntDesign , MaterialIcons , Octicons ,  Entypo , 
+import {  createBottomTabNavigator,  createAppContainer  } from "react-navigation";
+import { MaterialIcons , Octicons , 
     FontAwesome} from "@expo/vector-icons";
 
-import Home from "../Components/newHome";
-import OrderList from "../Components/Order";
-import Logout from "../Components/Logout";
+
 import Search from "../Components/Search";
 import Cart from "../Components/Cart";
-import EditProfile from "../Components/EditProfile";
-import Profile from "../Components/Profile"
-import {HomeStack, ProfileStack} from "./StackNavigators"
-import OrderDetails from "../Components/OrderDetails"
-import NewOrderDetails from "../Components/NewOrderDetails"
-import * as styles from "../Styles"
-import CustomMainHeader from "../Components/CustomMainHeader"
+
+import {HomeStack} from "./StackNavigators"
 
 
-
-
-
-const SearchStack = createStackNavigator({
-    Search
-})
-const CartStack = createStackNavigator({
-    Cart
-
-})
 const TabBar = createBottomTabNavigator(
     {
             Home: {
             screen : HomeStack,
-            navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-            <Octicons name='tools' size={25} color={tintColor} /> )})
-            },
+            navigationOptions : ({ navigation}) => 
+           
+            ({ 
+                 tabBarIcon: ({tintColor}) => (
+            <Octicons name='tools' size={25} color={tintColor} /> )
+           }) },
             Search:{ 
-            screen : SearchStack,
+            screen : Search,
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <FontAwesome name = 'search' size={25} color={tintColor} /> )})
             },
           
             Cart:{ 
-            screen : CartStack, 
+            screen : Cart, 
             navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
                 <MaterialIcons name = 'add-shopping-cart' size={25} color={tintColor} /> )})
-            },
-          
-            Logout : {
-            screen:Logout , 
-            navigationOptions : () => ({  tabBarIcon: ({tintColor}) => (
-                <AntDesign name='logout' size={25} color={tintColor} />)})
             }
    } ,
    {
             tabBarOptions: {
             activeTintColor: '#DA011D',
             inactiveTintColor: '#707070',
-            style:{ height: 70}
-            }  
-  }
-  )
+            style:{ height: 70} 
+        },
+            navigationOptions : ({ navigation}) => {
+            return { header:null}
+   }
+       
+    
+})
 
   export default  createAppContainer(TabBar)

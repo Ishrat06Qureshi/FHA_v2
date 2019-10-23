@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   ScrollView,
   Image
@@ -11,9 +10,6 @@ import List from "./List";
 import Heading from "./heading"
 import { Container} from "../Styles/index";
 import { RODS_URL , ANCHOR_URL, BIT_URL,NUT_URL,SAW_URL } from "../urls";
-import MyCarousal from "./Carousel"
-
-
 const rods_url = "http://13.59.64.244:3000/api/products?noOfRecords=3&skip=0&search=ROD"
 export default class Home extends Component {
   render() {
@@ -22,6 +18,7 @@ export default class Home extends Component {
         // backgroundColor:"#F7F5D9" 
         backgroundColor:"blue"
         }}>
+          
             
       <ScrollView>
           
@@ -102,16 +99,4 @@ export default class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  welcome: {
-    flex: 1,
-    margin: 20,
-    backgroundColor: 'orange',
-    margin: 10,
-    textAlign: 'center',
-    fontSize: 20,
-    paddingTop: 70,
-  }
-});
     

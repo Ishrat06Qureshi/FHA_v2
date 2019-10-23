@@ -21,9 +21,7 @@ export const HomeStack = createStackNavigator({
     },
     AllProducts : {
         screen: AllProducts,
-        navigationOptions: {
-            headerTitle:"Products",} ,
-    }
+}
 })
 
 const ProfileViewStack = createStackNavigator({

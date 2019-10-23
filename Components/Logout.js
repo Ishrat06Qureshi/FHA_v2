@@ -12,6 +12,7 @@ export default class Logout extends Component {
     
 
     componentDidMount(){
+        this.props.navigation.closeDrawer()
     this.props.navigation.navigate("WelcomeStack")
 
     }

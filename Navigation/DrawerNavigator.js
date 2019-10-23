@@ -15,6 +15,8 @@ import OrderList from "../Components/Order";
 import Logout from "../Components/Logout";
 
 
+
+
 const CustomDrawerComponent = ( props ) => {
     return(<SafeAreaView style = {{ flex:1 }}>
         <View style = {{ flex:1,justifyContent:"center" , 
@@ -38,7 +40,8 @@ const NewProfileStack  = createStackNavigator({
             headerLeft:  
             <CustomMainHeader screenProps = { navigation }/>
         }
-    }},
+    }
+},
     EditProfile
 } )
 
@@ -50,18 +53,20 @@ const OrderStack = createStackNavigator({
             headerLeft:  
             <CustomMainHeader screenProps = { navigation }/>
         }
-    }},
+    }
+},
    NewOrderDetails
 
 })
 
 const DashboardStack = createStackNavigator({
-    DashboardTabNavigator  : TabBar,
-} , {
-    defaultNavigationOptions : ({ navigation }) => {
-        return {
-            headerLeft:  
-            <CustomMainHeader screenProps = { navigation }/>
+    DashboardTabNavigator  : {
+        screen:TabBar , 
+        navigationOptions : ({ navigation }) => {
+            return {
+                headerLeft:  
+                <CustomMainHeader screenProps = { navigation }/>
+            } 
         }
     }
 })

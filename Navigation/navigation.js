@@ -75,6 +75,18 @@ const WelcomeStack = createStackNavigator({
   initialRouteName:"Welcome"
 })
 
+const mainStack  = createStackNavigator({
+  mainApp:{
+    screen:AppDrawerNavigator,
+    navigationOptions:({ navigation }) => {
+      return {
+        header:null
+      }
+    }
+  }
+})
+
+
 
 const AppSwitchNavigator = createSwitchNavigator({
   Splash:{
@@ -88,7 +100,7 @@ const AppSwitchNavigator = createSwitchNavigator({
     // },
 
     Home:{
-      screen: AppDrawerNavigator
+      screen: mainStack
     },
     
 
